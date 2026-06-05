@@ -8,6 +8,7 @@
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   html, body { font-family: 'Pretendard', system-ui, -apple-system, 'Apple SD Gothic Neo', sans-serif; -webkit-font-smoothing: antialiased; }
@@ -49,66 +50,50 @@ const POPO_IMG = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdUAAAIACAYAAADU
 /* ============================================================
    ICONS (lucide-style inline SVG, no emoji)
 ============================================================ */
-const Icon = ({ name, size = 18, className = "", stroke = 1.8 }) => {
-  const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: stroke, strokeLinecap: "round", strokeLinejoin: "round", className };
-  const paths = {
-    home:      <><path d="M3 11l9-8 9 8" /><path d="M5 10v10h14V10" /></>,
-    compass:   <><circle cx="12" cy="12" r="9" /><path d="M16 8l-2.5 5.5L8 16l2.5-5.5L16 8z" /></>,
-    briefcase: <><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></>,
-    folder:    <><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" /></>,
-    user:      <><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></>,
-    bell:      <><path d="M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16l-2-2z" /><path d="M10 21a2 2 0 0 0 4 0" /></>,
-    search:    <><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></>,
-    filter:    <><path d="M3 5h18M6 12h12M10 19h4" /></>,
-    arrowR:    <><path d="M5 12h14M13 6l6 6-6 6" /></>,
-    arrowL:    <><path d="M19 12H5M11 6l-6 6 6 6" /></>,
-    plus:      <><path d="M12 5v14M5 12h14" /></>,
-    check:     <><path d="M20 6L9 17l-5-5" /></>,
-    star:      <><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></>,
-    sparkle:   <><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8" /></>,
-    chart:     <><path d="M3 21h18" /><path d="M6 17V9M11 17V5M16 17v-7M21 17v-3" /></>,
-    coin:      <><circle cx="12" cy="12" r="9" /><path d="M9.5 9h4a2 2 0 0 1 0 4h-3a2 2 0 0 0 0 4h4M12 7v10" /></>,
-    chat:      <><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.4A8 8 0 1 1 21 12z" /></>,
-    flag:      <><path d="M5 21V4M5 4h11l-2 4 2 4H5" /></>,
-    book:      <><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2V5z" /><path d="M8 7h8M8 11h8M8 15h6" /></>,
-    layers:    <><path d="M12 3l9 5-9 5-9-5 9-5z" /><path d="M3 13l9 5 9-5M3 18l9 5 9-5" /></>,
-    target:    <><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></>,
-    shield:    <><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z" /></>,
-    users:     <><circle cx="9" cy="8" r="4" /><path d="M2 21a7 7 0 0 1 14 0" /><circle cx="17" cy="9" r="3" /><path d="M22 19a5 5 0 0 0-8-4" /></>,
-    upload:    <><path d="M12 16V4M6 10l6-6 6 6" /><path d="M4 20h16" /></>,
-    download:  <><path d="M12 4v12M6 10l6 6 6-6" /><path d="M4 20h16" /></>,
-    bolt:      <><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" /></>,
-    play:      <><path d="M6 4l14 8-14 8V4z" /></>,
-    bookmark:  <><path d="M6 3h12v18l-6-4-6 4V3z" /></>,
-    grid:      <><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></>,
-    settings:  <><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3h.1a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></>,
-    clock:     <><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></>,
-    calendar:  <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></>,
-    pencil:    <><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></>,
-    eye:       <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></>,
-    award:     <><circle cx="12" cy="9" r="6"/><path d="M9 14l-2 7 5-3 5 3-2-7"/></>,
-    trophy:    <><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M17 4h3v3a3 3 0 0 1-3 3M7 4H4v3a3 3 0 0 0 3 3"/></>,
-    rocket:    <><path d="M14 4c5 0 6 1 6 6 0 5-7 12-10 12l-4-4c0-3 7-10 12-10z"/><path d="M9 15l-3-3"/><circle cx="14.5" cy="9.5" r="1.5"/></>,
-    x:         <><path d="M18 6L6 18M6 6l12 12"/></>,
-    menu:      <><path d="M3 6h18M3 12h18M3 18h18"/></>,
-    lock:      <><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></>,
-    moneyIn:   <><path d="M21 7l-9 9-4-4-5 5"/><path d="M14 7h7v7"/></>,
-    pin:       <><path d="M12 2l4 6h-3v6h-2V8H8l4-6z"/><path d="M5 20h14"/></>,
-    handshake: <><path d="M11 17l-3 3-4-4 6-6 2 2 2-2 4 4-3 3"/><path d="M14 14l3 3"/></>,
-    palette:   <><path d="M12 3a9 9 0 1 0 0 18c1 0 2-1 2-2s-1-1-1-2 1-2 2-2h2a4 4 0 0 0 4-4 9 9 0 0 0-9-8z"/><circle cx="7" cy="11" r="1.2"/><circle cx="10" cy="6.5" r="1.2"/><circle cx="15" cy="6.5" r="1.2"/><circle cx="18" cy="11" r="1.2"/></>,
-    code:      <><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></>,
-    db:        <><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></>,
-    megaphone: <><path d="M3 11v2a3 3 0 0 0 3 3h1l4 4V4l-4 4H6a3 3 0 0 0-3 3z"/><path d="M16 8a5 5 0 0 1 0 8"/></>,
-    edit:      <><path d="M11 4H4v16h16v-7"/><path d="M18 2l4 4-9 9H9v-4l9-9z"/></>,
-    chevR:     <><path d="M9 6l6 6-6 6"/></>,
-    chevD:     <><path d="M6 9l6 6 6-6"/></>,
-    info:      <><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></>,
-    receipt:   <><path d="M5 3h14v18l-2.5-1.5L14 21l-2-1.5L10 21l-2.5-1.5L5 21V3z"/><path d="M9 8h6M9 12h6M9 16h4"/></>,
-  };
-  return (
-    <svg {...common}>{paths[name] || null}</svg>
-  );
+const ICON_MAP = {
+  home: "lucide:house", compass: "lucide:compass", briefcase: "lucide:briefcase",
+  folder: "lucide:folder", user: "lucide:user", bell: "lucide:bell",
+  search: "lucide:search", filter: "lucide:sliders-horizontal", arrowR: "lucide:arrow-right",
+  arrowL: "lucide:arrow-left", plus: "lucide:plus", check: "lucide:check",
+  star: "lucide:star", sparkle: "lucide:sparkles", chart: "lucide:bar-chart-3",
+  coin: "lucide:circle-dollar-sign", chat: "lucide:message-circle", flag: "lucide:flag",
+  book: "lucide:book-open", layers: "lucide:layers", target: "lucide:target",
+  shield: "lucide:shield", users: "lucide:users", upload: "lucide:upload",
+  download: "lucide:download", bolt: "lucide:zap", play: "lucide:play",
+  bookmark: "lucide:bookmark", grid: "lucide:layout-grid", settings: "lucide:settings",
+  clock: "lucide:clock", calendar: "lucide:calendar-days", pencil: "lucide:pencil",
+  eye: "lucide:eye", award: "lucide:award", trophy: "lucide:trophy",
+  rocket: "lucide:rocket", x: "lucide:x", menu: "lucide:menu",
+  lock: "lucide:lock", moneyIn: "lucide:trending-up", pin: "lucide:pin",
+  handshake: "lucide:handshake", palette: "lucide:palette", code: "lucide:code-xml",
+  db: "lucide:database", megaphone: "lucide:megaphone", edit: "lucide:square-pen",
+  chevR: "lucide:chevron-right", chevD: "lucide:chevron-down", info: "lucide:info",
+  receipt: "lucide:receipt-text",
 };
+
+const Icon = ({ name, size = 18, className = "" }) => (
+  <span
+    className={className}
+    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", verticalAlign: "middle", lineHeight: 0 }}
+  >
+    {name === "coin" ? (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" strokeWidth="1.8" style={{ display: "block" }}>
+        <circle cx="12" cy="12" r="9" />
+        <text x="12" y="12.5" textAnchor="middle" dominantBaseline="central"
+          fontSize="11" fontWeight="800" stroke="none" fill="currentColor"
+          fontFamily="Pretendard, system-ui, sans-serif">P</text>
+      </svg>
+    ) : (
+      <iconify-icon
+        icon={ICON_MAP[name] || "lucide:circle"}
+        width={size}
+        height={size}
+        style={{ display: "block", color: "currentColor" }}
+      ></iconify-icon>
+    )}
+  </span>
+);
 
 /* ============================================================
    SHARED UI PRIMITIVES
@@ -143,7 +128,7 @@ const Chip = ({ children, color = "indigo", active = false, onClick, size = "md"
   const borderClass = variant === "outline" ? "border" : "";
   const weightClass = variant === "outline" && active ? "font-bold" : "font-semibold";
   return (
-    <button onClick={onClick} className={`rounded-full ${weightClass} ${colorMap[color]} ${sizeMap[size]} ${borderClass} transition`}>
+    <button onClick={onClick} className={`rounded-full whitespace-nowrap shrink-0 ${weightClass} ${colorMap[color]} ${sizeMap[size]} ${borderClass} transition`}>
       {children}
     </button>
   );
@@ -242,7 +227,7 @@ const COMPANIES = {
 const PROJECTS = [
   {
     id: "p1", cat: "marketing", title: "20대 여성 타겟 인스타 콘텐츠 시리즈 기획",
-    company: "mindmill", duration: "3일", reward: 30000, type: "아이디어",
+    company: "mindmill", duration: "3일", reward: 8000, type: "아이디어",
     team: false, hire: true, applicants: 14, slots: 1,
     problem: "현재 인스타 팔로워 도달률이 정체 상태입니다. 20-29세 여성 사용자에게 '심리상담을 일상으로'라는 메시지를 자연스럽게 녹인 콘텐츠 시리즈가 필요합니다.",
     deliverable: "5편의 콘텐츠 기획안 (캡션 카피, 비주얼 톤, 시리즈 흐름 포함)",
@@ -251,7 +236,7 @@ const PROJECTS = [
   },
   {
     id: "p2", cat: "design", title: "모바일 앱 온보딩 4스텝 리디자인",
-    company: "beaufore", duration: "5일", reward: 80000, type: "실무",
+    company: "beaufore", duration: "5일", reward: 15000, type: "실무",
     team: false, hire: true, applicants: 22, slots: 1,
     problem: "온보딩 이탈률이 62%로 높습니다. 첫 구매까지 자연스럽게 이어지는 4스텝 온보딩 플로우 리디자인이 필요합니다.",
     deliverable: "Figma 시안 4컷 + 인터랙션 설명 + A/B 테스트 제안",
@@ -260,7 +245,7 @@ const PROJECTS = [
   },
   {
     id: "p3", cat: "pm", title: "PMF 검증을 위한 사용자 인터뷰 설계",
-    company: "codewave", duration: "1주", reward: 150000, type: "실무",
+    company: "codewave", duration: "1주", reward: 20000, type: "실무",
     team: true, hire: true, applicants: 31, slots: 3,
     problem: "신규 학습 트랙의 PMF를 측정해야 합니다. 인터뷰 가이드 설계부터 인사이트 추출, 의사결정 권고까지 한 사이클을 팀 단위로 진행합니다.",
     deliverable: "인터뷰 가이드 / 8명 인터뷰 후 인사이트 리포트 / 우선순위 권고",
@@ -269,7 +254,7 @@ const PROJECTS = [
   },
   {
     id: "p4", cat: "data", title: "고객 이탈 패턴 분석 리포트",
-    company: "greenroot", duration: "5일", reward: 100000, type: "실무",
+    company: "greenroot", duration: "5일", reward: 12000, type: "실무",
     team: false, hire: true, applicants: 18, slots: 1,
     problem: "6개월간 무료 트라이얼 사용자 1,200명 중 결제 전환은 8%입니다. 어느 단계에서 누가 왜 이탈하는지 데이터로 풀어주세요.",
     deliverable: "분석 노트북 + 핵심 인사이트 슬라이드 5장",
@@ -278,7 +263,7 @@ const PROJECTS = [
   },
   {
     id: "p5", cat: "dev", title: "결제 위젯 프로토타입 개발",
-    company: "fincrt", duration: "1주", reward: 180000, type: "실무",
+    company: "fincrt", duration: "1주", reward: 18000, type: "실무",
     team: true, hire: true, applicants: 26, slots: 2,
     problem: "소상공인이 자사 사이트에 5분 안에 붙일 수 있는 임베드형 결제 위젯이 필요합니다. 핵심 결제 플로우의 동작 가능한 프로토타입을 만들어주세요.",
     deliverable: "동작 가능한 위젯 코드 + 데모 페이지 + 통합 가이드",
@@ -287,7 +272,7 @@ const PROJECTS = [
   },
   {
     id: "p6", cat: "content", title: "감성 여행 블로그 5편 기획",
-    company: "travnote", duration: "3일", reward: 40000, type: "아이디어",
+    company: "travnote", duration: "3일", reward: 6000, type: "아이디어",
     team: false, hire: false, applicants: 9, slots: 2,
     problem: "30대 1인 여행자를 위한 '돌아갈 곳이 있는 여행' 컨셉의 블로그 시리즈 5편 기획이 필요합니다.",
     deliverable: "5편의 블로그 기획안 (목차, 첫 단락, 비주얼 가이드 포함)",
@@ -429,6 +414,8 @@ function App() {
   const [companyTab, setCompanyTab] = useState("dashboard");
   const [bookmarks, setBookmarks] = useState(new Set(["p2"]));
   const [appliedIds, setAppliedIds] = useState(new Set());
+  const [points, setPoints] = useState(1000);     // 학생 보유 포인트 (참여권 결제에 사용)
+  const [isPremium, setIsPremium] = useState(false); // 프리미엄 월간 구독 여부
   const [toast, setToast] = useState(null);
 
   const pushToast = (text) => {
@@ -494,6 +481,8 @@ function App() {
               tab={studentTab} setTab={setStudentTab}
               bookmarks={bookmarks} setBookmarks={setBookmarks}
               appliedIds={appliedIds} setAppliedIds={setAppliedIds}
+              points={points} setPoints={setPoints}
+              isPremium={isPremium} setIsPremium={setIsPremium}
               pushToast={pushToast}
             />
           </PhoneShell>
@@ -842,9 +831,78 @@ const DesktopShell = ({ children }) => (
 
 
 /* ============================================================
-   STUDENT APP
+   PRICING (수익화 모델)
+   - 학생: 포인트 충전 / 프로젝트 참여권(500P) / 프리미엄 월간 구독
+   - 기업: 프로젝트 등록용 포인트 충전
 ============================================================ */
-function StudentApp({ route, go, tab, setTab, bookmarks, setBookmarks, appliedIds, setAppliedIds, pushToast }) {
+const PRICING = {
+  // 학생 포인트 패키지: 원가(작대기) → 할인가
+  studentPacks: [
+    { id: 0, p: 500,    krw: 5000,   was: 6000,    bonus: 0 },
+    { id: 1, p: 10000,  krw: 95000,  was: 110000,  bonus: 5,  best: true },
+    { id: 2, p: 50000,  krw: 450000, was: 500000,  bonus: 12 },
+  ],
+  // 기업 프로젝트 등록 포인트 패키지: 원가(작대기) → 할인가
+  companyPacks: [
+    { id: 0, p: 2000,  krw: 20000,  was: 25000,  save: 0 },
+    { id: 1, p: 7000,  krw: 70000,  was: 88000,  save: 6,  best: true },
+    { id: 2, p: 15000, krw: 150000, was: 180000, save: 12 },
+  ],
+  applyFee: 500,                 // 프로젝트 1개 열람+참여권 (= 500P / 5,000원)
+  premium: { krw: 19900, was: 29900 }, // 프리미엄 무제한 월간 구독
+};
+
+/* 할인가 표시용: 원가에 작대기 + 할인가 강조 */
+const PriceTag = ({ was, now, suffix = "원", className = "", size = "md" }) => {
+  const nowCls = size === "lg" ? "text-2xl font-extrabold" : size === "sm" ? "text-sm font-extrabold" : "text-lg font-extrabold";
+  const pct = was ? Math.round((1 - now / was) * 100) : 0;
+  return (
+    <div className={`flex items-baseline gap-1.5 whitespace-nowrap ${className}`}>
+      {was && <span className="text-xs text-slate-400 line-through">{was.toLocaleString()}{suffix}</span>}
+      {was && pct > 0 && <span className="text-[11px] font-extrabold text-rose-500">{pct}%</span>}
+      <span className={`text-slate-900 ${nowCls}`}>{now.toLocaleString()}{suffix}</span>
+    </div>
+  );
+};
+
+/* 프리미엄 전용 기능 잠금 오버레이 (구독 전) */
+const PremiumGate = ({ title, desc, onSubscribe }) => (
+  <div className="px-5 py-10 fade-in">
+    <Card className="p-7 text-center relative overflow-hidden">
+      <div className="absolute -top-10 -right-10 w-32 h-32 grad-soft rounded-full opacity-70"></div>
+      <div className="relative">
+        <div className="w-14 h-14 mx-auto rounded-2xl grad-primary flex items-center justify-center shadow-pop">
+          <Icon name="lock" size={26} className="text-white" />
+        </div>
+        <div className="mt-4 inline-block"><Chip color="indigo" active size="sm">PREMIUM</Chip></div>
+        <div className="mt-3 text-lg font-extrabold text-slate-900">{title}</div>
+        <div className="mt-2 text-sm text-slate-500 leading-relaxed">{desc}</div>
+
+        <div className="mt-5 p-4 rounded-2xl grad-card text-left space-y-2">
+          {["무제한 프로젝트 열람 + 참여 (참여권 불필요)", "통합 포트폴리오 자동 정리 + PDF 다운로드", "실무자 1:1 피드백 무제한"].map((t) => (
+            <div key={t} className="flex items-start gap-2 text-xs text-slate-700">
+              <Icon name="check" size={14} className="text-violet-600 mt-0.5 shrink-0" />
+              <span>{t}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 flex flex-col items-center">
+          <PriceTag was={PRICING.premium.was} now={PRICING.premium.krw} size="lg" />
+          <div className="text-[11px] text-slate-400 mt-0.5">월 자동결제 · 언제든 해지</div>
+        </div>
+
+        <div className="mt-4">
+          <Btn variant="brand" size="lg" full icon="bolt" onClick={onSubscribe}>프리미엄 구독 시작하기</Btn>
+        </div>
+        <div className="text-[11px] text-slate-400 mt-3">또는 프로젝트마다 참여권 500P(5,000원)으로 개별 이용</div>
+      </div>
+    </Card>
+  </div>
+);
+
+
+function StudentApp({ route, go, tab, setTab, bookmarks, setBookmarks, appliedIds, setAppliedIds, points, setPoints, isPremium, setIsPremium, pushToast }) {
   const isDetail = route.view === "student-project-detail";
   const isWorkspace = route.view === "student-workspace";
   const isSimList = route.view === "student-simulation-list";
@@ -855,11 +913,33 @@ function StudentApp({ route, go, tab, setTab, bookmarks, setBookmarks, appliedId
   if (isDetail) {
     return <StudentProjectDetail
       go={go} projectId={route.projectId} bookmarks={bookmarks} setBookmarks={setBookmarks}
-      appliedIds={appliedIds} setAppliedIds={setAppliedIds} pushToast={pushToast}
+      appliedIds={appliedIds} setAppliedIds={setAppliedIds}
+      points={points} setPoints={setPoints} isPremium={isPremium}
+      pushToast={pushToast}
     />;
   }
   if (isWorkspace) {
-    return <StudentWorkspace go={go} pushToast={pushToast} />;
+    return <StudentWorkspace go={go} isPremium={isPremium} setIsPremium={setIsPremium} pushToast={pushToast} />;
+  }
+  // 잡 시뮬레이션은 프리미엄 전용 — 비구독 진입 시 잠금 화면 표시
+  if ((isSimList || isSimDetail || isSimPlay) && !isPremium) {
+    return (
+      <div className="fade-in h-full flex flex-col">
+        <div className="shrink-0 px-5 pt-5 pb-1 flex items-center gap-2">
+          <button onClick={() => go("student-home")} className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center">
+            <Icon name="arrowL" size={16} />
+          </button>
+          <div className="text-lg font-extrabold">잡 시뮬레이션</div>
+        </div>
+        <div className="flex-1 overflow-y-auto scrollbar-hide">
+          <PremiumGate
+            title="잡 시뮬레이션은 프리미엄 기능이에요"
+            desc="포포와 함께 실무 과제를 풀고 즉시 피드백을 받는 잡 시뮬레이션은 프리미엄 구독 시 무제한으로 이용할 수 있어요."
+            onSubscribe={() => { setIsPremium(true); pushToast("프리미엄 구독이 시작됐어요 · 월 19,900원"); }}
+          />
+        </div>
+      </div>
+    );
   }
   if (isSimList) {
     return <SimulationList go={go} />;
@@ -871,17 +951,17 @@ function StudentApp({ route, go, tab, setTab, bookmarks, setBookmarks, appliedId
     return <SimulationPlay go={go} simId={route.simId} pushToast={pushToast} />;
   }
   if (isPoints) {
-    return <StudentPoints go={go} pushToast={pushToast} />;
+    return <StudentPoints go={go} points={points} setPoints={setPoints} isPremium={isPremium} setIsPremium={setIsPremium} pushToast={pushToast} initialTab={route.ptab} />;
   }
 
   return (
     <div className="relative h-full">
       <div className="h-full overflow-y-auto pb-24 scrollbar-hide">
-        {tab === "home" && <StudentHome go={go} setTab={setTab} bookmarks={bookmarks} setBookmarks={setBookmarks} />}
+        {tab === "home" && <StudentHome go={go} setTab={setTab} bookmarks={bookmarks} setBookmarks={setBookmarks} points={points} isPremium={isPremium} />}
         {tab === "explore" && <StudentExplore go={go} bookmarks={bookmarks} setBookmarks={setBookmarks} />}
         {tab === "mine" && <StudentMine go={go} />}
-        {tab === "portfolio" && <StudentPortfolio />}
-        {tab === "me" && <StudentMe go={go} />}
+        {tab === "portfolio" && <StudentPortfolio isPremium={isPremium} setIsPremium={setIsPremium} go={go} pushToast={pushToast} />}
+        {tab === "me" && <StudentMe go={go} isPremium={isPremium} setIsPremium={setIsPremium} pushToast={pushToast} />}
       </div>
       <StudentTabBar tab={tab} setTab={setTab} />
     </div>
@@ -911,16 +991,16 @@ const StudentTabBar = ({ tab, setTab }) => {
   );
 };
 
-const StudentHomeHeader = ({ name = "지원", level = 3, points = 184000, onPointClick }) => (
-  <div className="px-5 pt-5 pb-3 flex items-center justify-between gap-2">
+const StudentHomeHeader = ({ name = "지원", level = 3, points = 184000, isPremium = false, onPointClick }) => (
+  <div className="px-5 pt-5 pb-3 flex items-center justify-between gap-3">
     <div className="min-w-0 flex-1 overflow-hidden">
-      <div className="text-xs text-slate-500 font-medium whitespace-nowrap">안녕하세요 이민영님</div>
-      <div className="text-base font-extrabold whitespace-nowrap">오늘은 어떤 실무를 해볼까요?</div>
+      <div className="text-xs text-slate-500 font-medium truncate">안녕하세요 이민영님</div>
+      <div className="text-base font-extrabold truncate">오늘은 어떤 실무를 해볼까요?</div>
     </div>
     <div className="flex items-center gap-2 shrink-0">
-      <button onClick={onPointClick} className="h-9 px-2.5 rounded-full bg-violet-50 flex items-center gap-1 hover:bg-violet-100 transition">
-        <Icon name="coin" size={14} className="text-violet-600" />
-        <span className="text-xs font-bold text-violet-700">{(points / 1000).toFixed(0)}K</span>
+      <button onClick={onPointClick} className="w-9 h-9 rounded-full bg-violet-50 flex items-center justify-center hover:bg-violet-100 transition relative">
+        <Icon name="coin" size={17} className="text-violet-600" />
+        {isPremium && <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full grad-primary border-2 border-white"></span>}
       </button>
       <button className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center"><Icon name="bell" size={16} className="text-slate-700" /></button>
     </div>
@@ -1027,12 +1107,12 @@ const AdBanner = ({ go, setTab }) => {
   );
 };
 
-const StudentHome = ({ go, setTab, bookmarks, setBookmarks }) => {
+const StudentHome = ({ go, setTab, bookmarks, setBookmarks, points = 184000, isPremium = false }) => {
   const [feedMode, setFeedMode] = useState("post"); // "post" | "short"
   const recommended = PROJECTS.slice(0, 4);
   return (
     <div className="fade-in">
-      <StudentHomeHeader onPointClick={() => go("student-points")} />
+      <StudentHomeHeader points={points} isPremium={isPremium} onPointClick={() => go("student-points")} />
 
       {/* 광고 배너 */}
       <AdBanner go={go} setTab={setTab} />
@@ -1067,7 +1147,9 @@ const StudentHome = ({ go, setTab, bookmarks, setBookmarks }) => {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="font-extrabold text-[13px] text-slate-900">Job 시뮬레이션</span>
-                  <span className="text-[9px] font-bold text-violet-700 bg-violet-100 px-1 py-0.5 rounded">무료</span>
+                  <span className="inline-flex items-center gap-0.5 text-[9px] font-extrabold text-white grad-primary px-1.5 py-0.5 rounded-full">
+                    <Icon name="lock" size={8} className="text-white" />PREMIUM
+                  </span>
                 </div>
                 <div className="text-[11px] text-slate-600 mt-0.5 truncate">포포와 함께 실무 task 풀어보기</div>
               </div>
@@ -1226,7 +1308,7 @@ const ShortFormFeed = ({ projects, go, bookmarks, setBookmarks }) => {
                 <div className="mt-3 flex items-center gap-3 text-[11px] text-white/90 font-medium drop-shadow">
                   <span className="inline-flex items-center gap-1"><Icon name="clock" size={12} />{p.duration}</span>
                   <span className="inline-flex items-center gap-1"><Icon name="users" size={12} />지원 {p.applicants}</span>
-                  <span className="inline-flex items-center gap-1 font-extrabold"><Icon name="coin" size={12} />{p.reward.toLocaleString()}P</span>
+                  <span className="inline-flex items-center gap-1 font-extrabold"><Icon name="coin" size={12} />보상 {p.reward.toLocaleString()}P</span>
                 </div>
                 <button
                   onClick={() => go("student-project-detail", { projectId: p.id })}
@@ -1270,7 +1352,7 @@ const ProjectCard = ({ p, onClick, bookmarked, onToggleBookmark, compact = false
               <span className="inline-flex items-center gap-1"><Icon name="clock" size={12} />{p.duration}</span>
               <span className="inline-flex items-center gap-1"><Icon name="users" size={12} />지원 {p.applicants}</span>
             </div>
-            <div className="text-sm font-extrabold text-violet-700">{p.reward.toLocaleString()}P</div>
+            <div className="text-sm font-extrabold text-violet-700">보상 {p.reward.toLocaleString()}P</div>
           </div>
         </div>
         <button onClick={(e) => { e.stopPropagation(); onToggleBookmark && onToggleBookmark(); }} className="shrink-0">
@@ -1351,7 +1433,7 @@ const StudentExplore = ({ go, bookmarks, setBookmarks }) => {
   );
 };
 
-const StudentProjectDetail = ({ go, projectId, appliedIds, setAppliedIds, pushToast }) => {
+const StudentProjectDetail = ({ go, projectId, appliedIds, setAppliedIds, points = 184000, setPoints, isPremium = false, pushToast }) => {
   const p = PROJECTS.find((x) => x.id === projectId) || PROJECTS[1];
   const comp = COMPANIES[p.company];
   const cat = CATEGORIES.find((c) => c.id === p.cat);
@@ -1538,31 +1620,81 @@ const StudentProjectDetail = ({ go, projectId, appliedIds, setAppliedIds, pushTo
         {applied ? (
           <Btn variant="ghost" full disabled icon="check">지원 완료 · 검토 대기 중</Btn>
         ) : (
-          <Btn variant="brand" full size="lg" onClick={() => setShowApply(true)}>
-            지원하기
-          </Btn>
+          <div className="flex-1">
+            <Btn variant="brand" full size="lg" onClick={() => setShowApply(true)}>
+              지원하기
+            </Btn>
+          </div>
         )}
       </div>
 
       {showApply && (
-        <ApplyModal p={p} onClose={() => setShowApply(false)} onSubmit={() => {
-          const next = new Set(appliedIds); next.add(p.id); setAppliedIds(next);
-          setShowApply(false);
-          pushToast("지원이 완료되었어요. 평균 검토 시간 18시간");
-        }} />
+        <ApplyModal
+          p={p}
+          points={points}
+          isPremium={isPremium}
+          onClose={() => setShowApply(false)}
+          onSubmit={() => {
+            // 프리미엄이 아니면 참여권 500P 차감, 잔액 부족 시 충전 유도
+            if (!isPremium) {
+              if (points < PRICING.applyFee) {
+                setShowApply(false);
+                pushToast(`포인트가 부족해요. 참여권 ${PRICING.applyFee}P가 필요합니다`);
+                go("student-points");
+                return;
+              }
+              if (setPoints) setPoints(points - PRICING.applyFee);
+            }
+            const next = new Set(appliedIds); next.add(p.id); setAppliedIds(next);
+            setShowApply(false);
+            pushToast(isPremium
+              ? "지원이 완료되었어요 (프리미엄 무제한). 평균 검토 18시간"
+              : `참여권 ${PRICING.applyFee}P 사용 · 지원 완료. 평균 검토 18시간`);
+          }}
+        />
       )}
     </div>
   );
 };
 
-const ApplyModal = ({ p, onClose, onSubmit }) => {
+const ApplyModal = ({ p, points = 184000, isPremium = false, onClose, onSubmit }) => {
   const [why, setWhy] = useState("");
+  const fee = PRICING.applyFee;
+  const insufficient = !isPremium && points < fee;
   return (
     <div className="absolute inset-0 z-30 bg-slate-900/50 flex items-end fade-in">
-      <div className="bg-white w-full rounded-t-3xl p-5 max-h-[80%] overflow-y-auto">
+      <div className="bg-white w-full rounded-t-3xl p-5 max-h-[88%] overflow-y-auto">
         <div className="w-12 h-1 bg-slate-200 rounded-full mx-auto mb-4"></div>
         <div className="text-lg font-extrabold">지원 신청서</div>
         <div className="text-xs text-slate-500 mt-1">{p.title}</div>
+
+        {/* 참여권 결제 안내 */}
+        {isPremium ? (
+          <div className="mt-4 p-3 rounded-xl grad-card flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg grad-primary flex items-center justify-center shrink-0">
+              <Icon name="bolt" size={15} className="text-white" />
+            </div>
+            <div className="text-xs text-slate-700">
+              <span className="font-extrabold text-violet-700">프리미엄 무제한</span> 이용 중 · 참여권 없이 바로 지원돼요
+            </div>
+          </div>
+        ) : (
+          <div className="mt-4 p-3 rounded-xl bg-violet-50 border border-violet-100">
+            <div className="flex items-center justify-between">
+              <div className="text-xs font-semibold text-violet-700 flex items-center gap-1">
+                <Icon name="coin" size={13} /> 프로젝트 참여권
+              </div>
+              <span className="text-sm font-extrabold text-violet-700">{fee}P</span>
+            </div>
+            <div className="mt-1.5 flex items-center justify-between text-[11px] text-slate-500">
+              <span>이 프로젝트 1개 열람 + 참여</span>
+              <span>보유 {points.toLocaleString()}P → <span className={`font-bold ${insufficient ? "text-rose-500" : "text-slate-700"}`}>{Math.max(points - fee, 0).toLocaleString()}P</span></span>
+            </div>
+            {insufficient && (
+              <div className="mt-2 text-[11px] font-semibold text-rose-500">포인트가 부족해요. 충전 후 다시 시도해 주세요.</div>
+            )}
+          </div>
+        )}
 
         <div className="mt-4 space-y-3">
           <div>
@@ -1583,7 +1715,9 @@ const ApplyModal = ({ p, onClose, onSubmit }) => {
 
         <div className="mt-5 flex gap-2">
           <Btn variant="ghost" onClick={onClose} full>취소</Btn>
-          <Btn variant="brand" full icon="check" onClick={onSubmit} disabled={!why}>지원하기</Btn>
+          <Btn variant="brand" full icon="check" onClick={onSubmit} disabled={!why || insufficient}>
+            {isPremium ? "지원하기" : `지원 ${fee}P`}
+          </Btn>
         </div>
       </div>
     </div>
@@ -1601,10 +1735,10 @@ const StudentMine = ({ go }) => {
     { id: "r1", title: "20대 여성 타겟 인스타 콘텐츠 시리즈 기획", company: "마인드밀", phase: "검토 중", date: "어제 제출", outcome: "응답 평균 18시간" },
   ];
   const done = [
-    { id: "d1", cat: "design", title: "비포레 온보딩 리디자인 v1", company: "비포레", date: "2026.04.18", outcome: "온보딩 이탈률 가설 -38%", reward: 80000, picked: true, hireOffer: true },
-    { id: "d2", cat: "marketing", title: "정신건강 캠페인 콘텐츠 5편", company: "마인드밀", date: "2026.03.21", outcome: "도달률 +21%", reward: 30000, picked: true, hireOffer: false },
-    { id: "d3", cat: "content", title: "1인 여행자 블로그 시리즈", company: "트래블노트", date: "2026.02.12", outcome: "최우수 채택", reward: 40000, picked: true, hireOffer: false },
-    { id: "d4", cat: "pm", title: "구독 서비스 PMF 인터뷰", company: "코드웨이브", date: "2026.01.30", outcome: "팀 우수상", reward: 50000, picked: false, hireOffer: false },
+    { id: "d1", cat: "design", title: "비포레 온보딩 리디자인 v1", company: "비포레", date: "2026.04.18", outcome: "온보딩 이탈률 가설 -38%", reward: 15000, picked: true, hireOffer: true },
+    { id: "d2", cat: "marketing", title: "정신건강 캠페인 콘텐츠 5편", company: "마인드밀", date: "2026.03.21", outcome: "도달률 +21%", reward: 8000, picked: true, hireOffer: false },
+    { id: "d3", cat: "content", title: "1인 여행자 블로그 시리즈", company: "트래블노트", date: "2026.02.12", outcome: "최우수 채택", reward: 6000, picked: true, hireOffer: false },
+    { id: "d4", cat: "pm", title: "구독 서비스 PMF 인터뷰", company: "코드웨이브", date: "2026.01.30", outcome: "팀 우수상", reward: 12000, picked: false, hireOffer: false },
   ];
 
   const tabs = [
@@ -1714,8 +1848,8 @@ const StudentMine = ({ go }) => {
                     <div className="font-semibold mt-0.5">{d.outcome}</div>
                   </div>
                   <div className="p-2 rounded-lg bg-violet-50">
-                    <div className="text-[10px] font-semibold text-violet-600">획득 포인트</div>
-                    <div className="font-extrabold text-violet-700 mt-0.5">+{d.reward.toLocaleString()}P</div>
+                    <div className="text-[10px] font-semibold text-violet-600">보상 포인트</div>
+                    <div className="font-extrabold text-violet-700 mt-0.5">{d.reward.toLocaleString()}P</div>
                   </div>
                 </div>
               </Card>
@@ -1733,7 +1867,7 @@ const StudentMine = ({ go }) => {
   );
 };
 
-const StudentWorkspace = ({ go, pushToast }) => {
+const StudentWorkspace = ({ go, isPremium = false, setIsPremium, pushToast }) => {
   const steps = [
     { id: 1, title: "퍼널 데이터 확인", done: true },
     { id: 2, title: "경쟁 앱 온보딩 벤치마크", done: true },
@@ -1773,9 +1907,14 @@ const StudentWorkspace = ({ go, pushToast }) => {
           </div>
         </Card>
 
-        <Card className="mt-4 p-4">
-          <div className="text-sm font-extrabold mb-2">멘토 채팅</div>
-          <div className="space-y-3">
+        <Card className="mt-4 p-4 relative overflow-hidden">
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-sm font-extrabold flex items-center gap-1.5">
+              실무자 1:1 피드백
+              {!isPremium && <span className="px-1.5 py-0.5 rounded-full grad-primary text-white text-[9px] font-extrabold">PREMIUM</span>}
+            </div>
+          </div>
+          <div className={`space-y-3 ${!isPremium ? "blur-[3px] select-none pointer-events-none" : ""}`}>
             <div className="flex items-start gap-2">
               <Avatar name="이" color="rose" size={28} />
               <div className="bg-slate-100 rounded-2xl rounded-tl-md px-3 py-2 text-xs leading-relaxed max-w-[80%]">
@@ -1791,10 +1930,25 @@ const StudentWorkspace = ({ go, pushToast }) => {
               </div>
             </div>
           </div>
-          <div className="mt-3 flex gap-2">
-            <input className="flex-1 px-3 py-2 rounded-xl bg-slate-50 text-xs focus:outline-none" placeholder="메시지 보내기..." />
-            <button className="w-9 h-9 rounded-xl grad-primary text-white flex items-center justify-center"><Icon name="arrowR" size={14} /></button>
-          </div>
+          {isPremium ? (
+            <div className="mt-3 flex gap-2">
+              <input className="flex-1 px-3 py-2 rounded-xl bg-slate-50 text-xs focus:outline-none" placeholder="메시지 보내기..." />
+              <button className="w-9 h-9 rounded-xl grad-primary text-white flex items-center justify-center"><Icon name="arrowR" size={14} /></button>
+            </div>
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/70 backdrop-blur-[1px] p-4 text-center">
+              <div className="w-11 h-11 rounded-2xl grad-primary flex items-center justify-center shadow-pop">
+                <Icon name="lock" size={20} className="text-white" />
+              </div>
+              <div className="mt-2 text-sm font-extrabold text-slate-900">실무자 1:1 피드백</div>
+              <div className="text-[11px] text-slate-500 mt-0.5">프리미엄 구독 시 무제한 이용 (월 19,900원)</div>
+              <button
+                onClick={() => { if (setIsPremium) setIsPremium(true); if (pushToast) pushToast("프리미엄 구독이 시작됐어요 · 월 19,900원"); }}
+                className="mt-3 px-4 py-2 rounded-xl grad-primary text-white text-xs font-extrabold shadow-pop">
+                프리미엄으로 잠금 해제
+              </button>
+            </div>
+          )}
         </Card>
 
         <Card className="mt-4 p-4">
@@ -1818,9 +1972,47 @@ const StudentWorkspace = ({ go, pushToast }) => {
   );
 };
 
-const StudentPortfolio = () => {
+const StudentPortfolio = ({ isPremium = false, setIsPremium, go, pushToast }) => {
   const [filter, setFilter] = useState("all");
   const list = filter === "all" ? PORTFOLIO_ITEMS : PORTFOLIO_ITEMS.filter((p) => p.cat === filter);
+
+  // 프리미엄 미구독 시 잠금 화면
+  if (!isPremium) {
+    return (
+      <div className="fade-in">
+        <div className="px-5 pt-5 pb-2">
+          <div className="text-lg font-extrabold">내 포트폴리오</div>
+          <div className="text-xs text-slate-500 mt-0.5">완료한 프로젝트가 자동으로 정리됩니다</div>
+        </div>
+        {/* 흐릿한 미리보기 위 잠금 */}
+        <div className="relative">
+          <div className="px-5 mt-3 opacity-40 blur-[2px] pointer-events-none select-none">
+            <div className="grid grid-cols-3 p-3 rounded-2xl bg-slate-50 border border-slate-200">
+              <Stat label="누적 케이스" value="8" bare />
+              <Stat label="채택률" value="62%" accent="text-emerald-600" bare />
+              <Stat label="평점" value="4.7" accent="text-violet-700" bare />
+            </div>
+            <Card className="mt-3 p-4">
+              <div className="font-bold leading-snug">온보딩 4스텝 리디자인</div>
+              <div className="text-xs text-slate-500 mt-0.5">비포레</div>
+              <div className="mt-3 p-3 rounded-xl bg-violet-50">
+                <div className="text-[10px] font-semibold text-violet-700 mb-1">실무자 피드백</div>
+                <div className="text-xs text-slate-700">"가설 정의가 탄탄해서 바로 적용했어요."</div>
+              </div>
+            </Card>
+          </div>
+          <div className="absolute inset-x-0 top-0">
+            <PremiumGate
+              title="포트폴리오는 프리미엄 기능이에요"
+              desc="완료한 프로젝트를 자동으로 케이스로 정리하고, 실무자 1:1 피드백과 통합 PDF까지 프리미엄에서 이용할 수 있어요."
+              onSubscribe={() => { if (setIsPremium) setIsPremium(true); if (pushToast) pushToast("프리미엄 구독이 시작됐어요 · 월 19,900원"); }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="fade-in">
       <div className="px-5 pt-5 pb-2">
@@ -1885,7 +2077,7 @@ const StudentPortfolio = () => {
   );
 };
 
-const StudentMe = ({ go }) => {
+const StudentMe = ({ go, isPremium = false, setIsPremium, pushToast }) => {
   return (
     <div className="fade-in pb-4">
       <div className="px-5 pt-5">
@@ -1912,6 +2104,57 @@ const StudentMe = ({ go }) => {
           <Stat label="오퍼" value="3" accent="text-violet-700" bare />
           <Stat label="평점" value="4.8" bare />
         </div>
+      </div>
+
+      {/* 프리미엄 구독 상태 */}
+      <div className="px-5 mt-4">
+        {isPremium ? (
+          <Card className="p-4 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl grad-primary flex items-center justify-center shadow-pop shrink-0">
+              <Icon name="bolt" size={18} className="text-white" />
+            </div>
+            <div className="flex-1">
+              <div className="font-extrabold text-sm flex items-center gap-1.5">
+                프리미엄 무제한 <span className="px-1.5 py-0.5 rounded-full grad-primary text-white text-[9px] font-extrabold">구독중</span>
+              </div>
+              <div className="text-[11px] text-slate-500 mt-0.5">다음 결제 2026.06.18 · 월 19,900원</div>
+            </div>
+          </Card>
+        ) : (
+          <Card className="p-4 grad-card relative overflow-hidden">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl grad-primary flex items-center justify-center shadow-pop shrink-0">
+                <Icon name="bolt" size={18} className="text-white" />
+              </div>
+              <div className="flex-1">
+                <div className="font-extrabold text-sm">프리미엄으로 더 빠르게 성장하세요</div>
+                <div className="text-[11px] text-slate-600 mt-0.5 leading-relaxed">무제한 참여 · 포트폴리오 · 실무자 1:1 피드백</div>
+                <div className="mt-2"><PriceTag was={PRICING.premium.was} now={PRICING.premium.krw} size="md" /></div>
+              </div>
+            </div>
+            <button
+              onClick={() => { if (setIsPremium) setIsPremium(true); if (pushToast) pushToast("프리미엄 구독이 시작됐어요 · 월 19,900원"); }}
+              className="mt-3 w-full py-2.5 rounded-xl grad-primary text-white text-sm font-extrabold shadow-pop">
+              월 19,900원으로 시작하기
+            </button>
+          </Card>
+        )}
+      </div>
+
+      {/* 포인트 / 이용권 바로가기 */}
+      <div className="px-5 mt-3">
+        <button onClick={() => go("student-points")} className="w-full">
+          <Card className="p-4 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center shrink-0">
+              <Icon name="coin" size={18} className="text-violet-600" />
+            </div>
+            <div className="flex-1 text-left">
+              <div className="font-extrabold text-sm">포인트 · 이용권 관리</div>
+              <div className="text-[11px] text-slate-500 mt-0.5">충전 · 참여권 · 구독</div>
+            </div>
+            <Icon name="chevR" size={16} className="text-slate-400" />
+          </Card>
+        </button>
       </div>
 
       <div className="px-5 mt-5">
@@ -2342,25 +2585,19 @@ const SimulationPlay = ({ go, simId, pushToast }) => {
 /* ============================================================
    STUDENT POINTS (포인트 충전 / 사용 내역)
 ============================================================ */
-const StudentPoints = ({ go, pushToast }) => {
-  const [tab, setTab] = useState("charge"); // charge | history
+const StudentPoints = ({ go, points = 184000, setPoints, isPremium = false, setIsPremium, pushToast, initialTab }) => {
+  const [tab, setTab] = useState(initialTab || "charge"); // charge | pass | history
   const [pack, setPack] = useState(1);
 
-  const packs = [
-    { id: 0, p: 30000, krw: 30000, bonus: 0 },
-    { id: 1, p: 100000, krw: 95000, bonus: 5 },
-    { id: 2, p: 300000, krw: 270000, bonus: 10 },
-    { id: 3, p: 500000, krw: 440000, bonus: 12 },
-  ];
+  const packs = PRICING.studentPacks;
 
   const history = [
-    { id: "h1", type: "earn", title: "비포레 온보딩 리디자인 채택", date: "2026.04.18", amount: 80000 },
-    { id: "h2", type: "earn", title: "마인드밀 캠페인 콘텐츠 채택", date: "2026.03.21", amount: 30000 },
-    { id: "h3", type: "spend", title: "프리미엄 멘토 1:1 피드백", date: "2026.03.15", amount: -10000 },
-    { id: "h4", type: "earn", title: "트래블노트 블로그 시리즈", date: "2026.02.12", amount: 40000 },
-    { id: "h5", type: "spend", title: "포트폴리오 PDF 변환", date: "2026.02.05", amount: -2000 },
-    { id: "h6", type: "earn", title: "코드웨이브 PMF 인터뷰", date: "2026.01.30", amount: 50000 },
-    { id: "h7", type: "charge", title: "포인트 충전", date: "2026.01.10", amount: 100000 },
+    { id: "h0", type: "spend", title: "프로젝트 참여권 사용 (온보딩 리디자인)", date: "2026.05.02", amount: -500 },
+    { id: "h7", type: "charge", title: "포인트 충전 (10,000P)", date: "2026.05.01", amount: 10000 },
+    { id: "h1", type: "earn", title: "비포레 온보딩 리디자인 보상", date: "2026.04.18", amount: 15000 },
+    { id: "h3", type: "spend", title: "프로젝트 참여권 사용 (캠페인 콘텐츠)", date: "2026.03.15", amount: -500 },
+    { id: "h4", type: "earn", title: "트래블노트 블로그 시리즈 보상", date: "2026.02.12", amount: 6000 },
+    { id: "h6", type: "earn", title: "코드웨이브 PMF 인터뷰 보상", date: "2026.01.30", amount: 12000 },
   ];
 
   return (
@@ -2370,7 +2607,7 @@ const StudentPoints = ({ go, pushToast }) => {
         <button onClick={() => go("student-home")} className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center">
           <Icon name="arrowL" size={16} />
         </button>
-        <div className="text-lg font-extrabold">포인트</div>
+        <div className="text-lg font-extrabold">포인트 / 이용권</div>
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-hide pb-6">
@@ -2382,9 +2619,11 @@ const StudentPoints = ({ go, pushToast }) => {
               <Icon name="coin" size={90} className="text-white" />
             </div>
             <div className="relative">
-              <div className="text-xs font-semibold opacity-80">보유 포인트</div>
-              <div className="text-3xl font-extrabold mt-1">184,000<span className="text-base ml-1">P</span></div>
-              <div className="text-xs opacity-80 mt-2">≈ ₩184,000 가치 · 출금 가능</div>
+              <div className="flex items-center gap-2">
+                <div className="text-xs font-semibold opacity-80">보유 포인트</div>
+                {isPremium && <span className="px-1.5 py-0.5 rounded-full bg-white/25 text-[9px] font-extrabold">PREMIUM 구독중</span>}
+              </div>
+              <div className="text-3xl font-extrabold mt-1">{points.toLocaleString()}<span className="text-base ml-1">P</span></div>
             </div>
           </Card>
         </div>
@@ -2394,6 +2633,7 @@ const StudentPoints = ({ go, pushToast }) => {
           <div className="flex gap-5 border-b border-slate-100">
             {[
               { id: "charge", label: "충전하기" },
+              { id: "pass", label: "이용권" },
               { id: "history", label: "내역" },
             ].map((t) => {
               const active = tab === t.id;
@@ -2411,7 +2651,7 @@ const StudentPoints = ({ go, pushToast }) => {
         {/* 충전 패키지 */}
         {tab === "charge" && (
           <div className="px-5 mt-4 fade-in">
-            <div className="text-xs text-slate-500 mb-3">한 번에 더 충전할수록 보너스 포인트가 늘어나요</div>
+            <div className="text-xs text-slate-500 mb-3">한 번에 더 충전할수록 할인폭이 커져요</div>
             <div className="space-y-2">
               {packs.map((p) => {
                 const active = pack === p.id;
@@ -2422,13 +2662,16 @@ const StudentPoints = ({ go, pushToast }) => {
                       <Icon name="coin" size={20} className={active ? "text-white" : "text-slate-500"} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="font-extrabold text-slate-900">{p.p.toLocaleString()}P</span>
-                        {p.bonus > 0 && <Chip color="emerald" size="sm">+{p.bonus}% 보너스</Chip>}
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-extrabold text-slate-900 whitespace-nowrap">{p.p.toLocaleString()}P</span>
+                        {p.best && <Chip color="indigo" active size="sm">인기</Chip>}
+                        {p.bonus > 0 && <Chip color="emerald" size="sm">+{p.bonus}%</Chip>}
                       </div>
-                      <div className="text-xs text-slate-500 mt-0.5">결제 금액 ₩{p.krw.toLocaleString()}</div>
+                      <div className="mt-1">
+                        <PriceTag was={p.was} now={p.krw} size="sm" />
+                      </div>
                     </div>
-                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${active ? "border-violet-600 bg-violet-600" : "border-slate-300"}`}>
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${active ? "border-violet-600 bg-violet-600" : "border-slate-300"}`}>
                       {active && <Icon name="check" size={12} className="text-white" />}
                     </div>
                   </button>
@@ -2439,21 +2682,61 @@ const StudentPoints = ({ go, pushToast }) => {
             <div className="mt-5 p-3 rounded-xl bg-slate-50 border border-slate-100">
               <div className="flex items-start gap-2 text-[11px] text-slate-600 leading-relaxed">
                 <Icon name="info" size={13} className="text-slate-500 shrink-0 mt-0.5" />
-                <div>포인트는 프리미엄 멘토 피드백, 시뮬레이션 무제한 이용, 포트폴리오 PDF 변환 등에 사용할 수 있어요. 환불은 7일 이내 미사용분만 가능합니다.</div>
+                <div>충전한 포인트는 프로젝트 참여권(1개당 {PRICING.applyFee}P) 결제에 사용돼요. 환불은 7일 이내 미사용분만 가능합니다.</div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* 이용권 · 구독 */}
+        {tab === "pass" && (
+          <div className="px-5 mt-4 fade-in space-y-4">
+            {/* 프리미엄 구독 */}
+            <Card className={`p-5 relative overflow-hidden ${isPremium ? "" : "grad-card"}`}>
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-xl grad-primary flex items-center justify-center shadow-pop">
+                  <Icon name="bolt" size={18} className="text-white" />
+                </div>
+                <div>
+                  <div className="font-extrabold text-sm flex items-center gap-1.5">
+                    프리미엄 무제한
+                    <span className="px-1.5 py-0.5 rounded-full grad-primary text-white text-[9px] font-extrabold">월간 구독</span>
+                  </div>
+                  <div className="text-[11px] text-slate-500">참여권 없이 무제한 + 포트폴리오 + 1:1 피드백</div>
+                </div>
+              </div>
+
+              <div className="mt-4 space-y-2">
+                {["무제한 프로젝트 열람 + 참여 (참여권 불필요)", "통합 포트폴리오 자동 정리 + PDF 다운로드", "실무자 1:1 피드백 무제한"].map((t) => (
+                  <div key={t} className="flex items-start gap-2 text-xs text-slate-700">
+                    <Icon name="check" size={14} className="text-violet-600 mt-0.5 shrink-0" />
+                    <span>{t}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-4 flex items-end justify-between">
+                <PriceTag was={PRICING.premium.was} now={PRICING.premium.krw} size="lg" />
+                <span className="text-[11px] text-slate-400 mb-1">/ 월</span>
+              </div>
+
+              <div className="mt-4">
+                {isPremium ? (
+                  <Btn variant="ghost" full disabled icon="check">구독 중 · 다음 결제 2026.06.18</Btn>
+                ) : (
+                  <Btn variant="brand" size="lg" full icon="bolt"
+                    onClick={() => { if (setIsPremium) setIsPremium(true); pushToast("프리미엄 구독이 시작됐어요 · 월 19,900원"); }}>
+                    프리미엄 구독 시작하기
+                  </Btn>
+                )}
+              </div>
+            </Card>
           </div>
         )}
 
         {/* 내역 */}
         {tab === "history" && (
           <div className="px-5 mt-4 fade-in">
-            <div className="flex gap-2 mb-3">
-              <Chip color="slate" variant="outline" active size="sm">전체</Chip>
-              <Chip color="emerald" variant="outline" size="sm">적립</Chip>
-              <Chip color="rose" variant="outline" size="sm">사용</Chip>
-              <Chip color="indigo" variant="outline" size="sm">충전</Chip>
-            </div>
             <div className="space-y-2">
               {history.map((h) => {
                 const colorMap = {
@@ -2482,11 +2765,15 @@ const StudentPoints = ({ go, pushToast }) => {
         )}
       </div>
 
-      {/* CTA */}
+      {/* CTA - 충전 탭에서만 */}
       {tab === "charge" && (
         <div className="shrink-0 p-4 bg-white border-t border-slate-100">
-          <Btn variant="brand" size="lg" full icon="coin" onClick={() => pushToast(`${packs[pack].p.toLocaleString()}P 충전 완료`)}>
-            ₩{packs[pack].krw.toLocaleString()} 결제하고 충전
+          <Btn variant="brand" size="lg" full icon="coin"
+            onClick={() => {
+              if (setPoints) setPoints(points + packs[pack].p);
+              pushToast(`${packs[pack].p.toLocaleString()}P 충전 완료 · ₩${packs[pack].krw.toLocaleString()} 결제`);
+            }}>
+            {packs[pack].p.toLocaleString()}P 충전하기
           </Btn>
         </div>
       )}
@@ -2546,7 +2833,7 @@ const CompanySidebar = ({ tab, setTab, go }) => {
           <div className="text-[11px] text-slate-500">포인트</div>
           <Icon name="coin" size={14} className="text-amber-500" />
         </div>
-        <div className="text-xl font-extrabold mt-0.5">320,000P</div>
+        <div className="text-xl font-extrabold mt-0.5">14,000P</div>
         <Btn variant="softInd" size="sm" full icon="plus" className="mt-2" onClick={() => setTab("points")}>충전</Btn>
       </Card>
 
@@ -2727,6 +3014,10 @@ const CompanyNewProject = ({ setTab, pushToast }) => {
   });
   const update = (k, v) => setData({ ...data, [k]: v });
 
+  // 프로젝트 등록비(플랫폼 수수료): 충전 크레딧에서 건당 정액 차감
+  const regFee = 1000;
+  const balance = 14000;
+
   return (
     <div className="p-8 fade-in max-w-4xl">
       <div className="flex items-center gap-3">
@@ -2870,12 +3161,15 @@ const CompanyNewProject = ({ setTab, pushToast }) => {
               <Card className="p-4">
                 <div className="text-xs font-semibold text-slate-500">차감 예상</div>
                 <div className="mt-2 space-y-1.5 text-sm">
-                  <div className="flex justify-between"><span>프로젝트 등록비</span><span className="font-bold">{data.reward.toLocaleString()}P</span></div>
-                  <div className="flex justify-between text-slate-500"><span>상단 노출 부스트 (선택)</span><span>+10,000P/일</span></div>
+                  <div className="flex justify-between"><span>프로젝트 등록비 (건당)</span><span className="font-bold">{regFee.toLocaleString()}P</span></div>
+                  <div className="flex justify-between text-slate-500"><span>상단 노출 부스트 (선택)</span><span>+1,000P/일</span></div>
                   <div className="border-t border-slate-100 my-2"></div>
-                  <div className="flex justify-between font-extrabold"><span>총 차감</span><span className="text-violet-700">{data.reward.toLocaleString()}P</span></div>
+                  <div className="flex justify-between font-extrabold"><span>총 차감</span><span className="text-violet-700">{regFee.toLocaleString()}P</span></div>
                 </div>
-                <div className="mt-4 text-xs text-slate-500">잔액 320,000P → 차감 후 <span className="font-bold text-slate-700">{(320000 - data.reward).toLocaleString()}P</span></div>
+                <div className="mt-4 text-xs text-slate-500">잔액 {balance.toLocaleString()}P → 차감 후 <span className="font-bold text-slate-700">{(balance - regFee).toLocaleString()}P</span></div>
+                <div className="mt-3 p-2.5 rounded-lg bg-slate-50 text-[11px] text-slate-500 leading-relaxed">
+                  참여자 보상 <span className="font-bold text-slate-700">{data.reward.toLocaleString()}P</span>는 결과물 채택 시 별도 지급됩니다.
+                </div>
               </Card>
             </div>
             <Card className="mt-4 p-4">
@@ -3033,17 +3327,17 @@ const CompanyApplicants = ({ pushToast, setTab }) => {
 const BoostModal = ({ onClose, onPurchase }) => {
   const plans = [
     {
-      id: "p1", label: "24시간 부스트", days: 1, price: 10000,
+      id: "p1", label: "24시간 부스트", days: 1, price: 1000,
       desc: "탐색 화면 상단에 24시간 고정 노출",
       expect: "지원자 +30~50%",
     },
     {
-      id: "p2", label: "3일 부스트", days: 3, price: 25000, save: 17, popular: true,
+      id: "p2", label: "3일 부스트", days: 3, price: 2700, save: 10, popular: true,
       desc: "3일간 상단 고정 + 추천 피드 우선 노출",
       expect: "지원자 +80~120%",
     },
     {
-      id: "p3", label: "7일 프리미엄", days: 7, price: 50000, save: 29,
+      id: "p3", label: "7일 프리미엄", days: 7, price: 6000, save: 14,
       desc: "7일 상단 고정 + 푸시 알림 1회 + AD 슬롯 노출",
       expect: "지원자 +150~200%",
     },
@@ -3126,11 +3420,11 @@ const BoostModal = ({ onClose, onPurchase }) => {
             <div className="p-2.5 rounded-xl bg-violet-50 flex flex-col justify-between">
               <div>
                 <div className="text-[10px] font-semibold text-violet-700">보유 포인트</div>
-                <div className="font-extrabold text-violet-700 text-sm">2,840,000P</div>
+                <div className="font-extrabold text-violet-700 text-sm">14,000P</div>
               </div>
               <div>
                 <div className="text-[10px] text-slate-500 mt-1">결제 후 잔액</div>
-                <div className="font-bold text-slate-900 text-sm">{(2840000 - plan.price).toLocaleString()}P</div>
+                <div className="font-bold text-slate-900 text-sm">{(14000 - plan.price).toLocaleString()}P</div>
               </div>
             </div>
           </div>
@@ -3232,25 +3526,20 @@ const MessageModal = ({ applicant, onClose, onSend }) => {
 };
 
 const CompanyPoints = ({ pushToast }) => {
-  const [pack, setPack] = useState(2);
-  const packs = [
-    { id: 0, p: 50000, krw: 49000, save: 0 },
-    { id: 1, p: 200000, krw: 188000, save: 6 },
-    { id: 2, p: 500000, krw: 450000, save: 10, best: true },
-    { id: 3, p: 1000000, krw: 850000, save: 15 },
-  ];
+  const [pack, setPack] = useState(1);
+  const packs = PRICING.companyPacks;
   return (
     <div className="p-8 fade-in max-w-5xl">
       <h1 className="text-2xl font-extrabold">포인트 / 결제</h1>
-      <div className="text-sm text-slate-500 mt-1">월구독 없이, 쓴 만큼만</div>
+      <div className="text-sm text-slate-500 mt-1">월구독 없이, 쓴 만큼만 — 크레딧을 충전해 프로젝트 등록·홍보에 사용하세요</div>
 
       <div className="mt-6 grid grid-cols-3 gap-4">
         <Card className="p-5 col-span-2">
           <div className="flex items-center justify-between">
             <div>
               <div className="text-xs font-semibold text-slate-500">현재 보유 포인트</div>
-              <div className="text-4xl font-extrabold mt-1 text-grad">320,000P</div>
-              <div className="text-xs text-slate-500 mt-1">이번 달 소진 180,000P · 지난 달 대비 +24%</div>
+              <div className="text-4xl font-extrabold mt-1 text-grad">14,000P</div>
+              <div className="text-xs text-slate-500 mt-1">이번 달 소진 9,000P · 지난 달 대비 +24%</div>
             </div>
             <div className="w-20 h-20 rounded-2xl grad-primary flex items-center justify-center shadow-pop">
               <Icon name="coin" size={36} className="text-white" />
@@ -3265,18 +3554,18 @@ const CompanyPoints = ({ pushToast }) => {
       </div>
 
       <div className="mt-8">
-        <div className="font-extrabold">포인트 충전 패키지</div>
-        <div className="text-sm text-slate-500 mt-0.5">묶음 충전 시 최대 15% 추가 할인</div>
+        <div className="font-extrabold">크레딧 충전 패키지</div>
+        <div className="text-sm text-slate-500 mt-0.5">묶음 충전 시 최대 12% 할인 · 충전한 크레딧으로 프로젝트를 등록·홍보</div>
       </div>
 
-      <div className="mt-4 grid grid-cols-4 gap-3">
+      <div className="mt-4 grid grid-cols-3 gap-3">
         {packs.map((p) => (
           <button key={p.id} onClick={() => setPack(p.id)}
             className={`p-5 rounded-2xl border-2 text-left transition ${pack === p.id ? "border-violet-600 bg-white shadow-pop" : "border-slate-200 bg-white hover:border-violet-300"}`}>
-            {p.best && <Chip color="indigo" active size="sm">가장 인기</Chip>}
+            <div className="h-6">{p.best && <Chip color="indigo" active size="sm">가장 인기</Chip>}</div>
             <div className="text-2xl font-extrabold mt-2 text-slate-900">{p.p.toLocaleString()}P</div>
-            <div className="text-sm text-slate-500 mt-1">{p.krw.toLocaleString()}원</div>
-            {p.save > 0 && <Chip color="emerald" size="sm">{p.save}% 추가 적립</Chip>}
+            <div className="mt-1"><PriceTag was={p.was} now={p.krw} size="sm" /></div>
+            <div className="mt-2 h-6">{p.save > 0 && <Chip color="emerald" size="sm">{p.save}% 할인</Chip>}</div>
           </button>
         ))}
       </div>
@@ -3289,11 +3578,11 @@ const CompanyPoints = ({ pushToast }) => {
         <div className="font-extrabold mb-3">사용 내역</div>
         <Card className="overflow-hidden">
           {[
-            { d: "2026.05.24", t: "프로젝트 등록: 모바일 앱 온보딩 4스텝 리디자인", a: -80000 },
-            { d: "2026.05.22", t: "상단 노출 부스트 (3일)", a: -30000 },
-            { d: "2026.05.18", t: "포인트 충전 (500,000P)", a: +500000 },
-            { d: "2026.05.10", t: "프로젝트 등록: 친환경 패키지 콘텐츠 5편", a: -40000 },
-            { d: "2026.05.02", t: "채용 성공 수수료 (디자이너 정규 채용)", a: -210000 },
+            { d: "2026.05.24", t: "프로젝트 등록: 모바일 앱 온보딩 4스텝 리디자인", a: -1000 },
+            { d: "2026.05.22", t: "상단 노출 부스트 (3일)", a: -2700 },
+            { d: "2026.05.18", t: "크레딧 충전 (15,000P)", a: +15000 },
+            { d: "2026.05.10", t: "프로젝트 등록: 친환경 패키지 콘텐츠", a: -1000 },
+            { d: "2026.05.02", t: "프로젝트 등록: 브랜드 리서치", a: -1000 },
           ].map((r, i) => (
             <div key={i} className={`grid grid-cols-12 gap-4 px-5 py-3 ${i ? "border-t border-slate-100" : ""}`}>
               <div className="col-span-2 text-xs text-slate-500">{r.d}</div>
