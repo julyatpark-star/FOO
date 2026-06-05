@@ -844,9 +844,9 @@ const PRICING = {
   ],
   // 기업 프로젝트 등록 포인트 패키지: 원가(작대기) → 할인가
   companyPacks: [
-    { id: 0, p: 2000,  krw: 20000,  was: 25000,  save: 0 },
-    { id: 1, p: 7000,  krw: 70000,  was: 88000,  save: 6,  best: true },
-    { id: 2, p: 15000, krw: 150000, was: 180000, save: 12 },
+    { id: 0, p: 500,    krw: 5000,   was: 6000,    save: 0 },
+    { id: 1, p: 10000,  krw: 95000,  was: 110000,  save: 14, best: true },
+    { id: 2, p: 50000,  krw: 450000, was: 500000,  save: 10 },
   ],
   applyFee: 500,                 // 프로젝트 1개 열람+참여권 (= 500P / 5,000원)
   premium: { krw: 19900, was: 29900 }, // 프리미엄 무제한 월간 구독
@@ -2833,7 +2833,7 @@ const CompanySidebar = ({ tab, setTab, go }) => {
           <div className="text-[11px] text-slate-500">포인트</div>
           <Icon name="coin" size={14} className="text-amber-500" />
         </div>
-        <div className="text-xl font-extrabold mt-0.5">14,000P</div>
+        <div className="text-xl font-extrabold mt-0.5">50,000P</div>
         <Btn variant="softInd" size="sm" full icon="plus" className="mt-2" onClick={() => setTab("points")}>충전</Btn>
       </Card>
 
@@ -2945,10 +2945,10 @@ const CompanyDashboard = ({ setTab, go }) => {
 
 const CompanyProjects = ({ setTab, go }) => {
   const rows = [
-    { id: 1, t: "모바일 앱 온보딩 4스텝 리디자인", cat: "디자인", apps: 22, phase: "검토중", due: "D-3", reward: 80000, hot: true },
-    { id: 2, t: "친환경 패키지 콘텐츠 5편", cat: "콘텐츠", apps: 18, phase: "수행중", due: "D-5", reward: 40000 },
-    { id: 3, t: "구매 후 리텐션 데이터 분석", cat: "데이터", apps: 14, phase: "모집중", due: "D-7", reward: 100000 },
-    { id: 4, t: "20대 여성 인스타 콘텐츠 시리즈", cat: "마케팅", apps: 11, phase: "마감", due: "완료", reward: 30000 },
+    { id: 1, t: "모바일 앱 온보딩 4스텝 리디자인", cat: "디자인", apps: 22, phase: "검토중", due: "D-3", reward: 7000, hot: true },
+    { id: 2, t: "친환경 패키지 콘텐츠 5편", cat: "콘텐츠", apps: 18, phase: "수행중", due: "D-5", reward: 7000 },
+    { id: 3, t: "구매 후 리텐션 데이터 분석", cat: "데이터", apps: 14, phase: "모집중", due: "D-7", reward: 15000 },
+    { id: 4, t: "20대 여성 인스타 콘텐츠 시리즈", cat: "마케팅", apps: 11, phase: "마감", due: "완료", reward: 2000 },
   ];
   return (
     <div className="p-8 fade-in">
@@ -3007,16 +3007,16 @@ const CompanyNewProject = ({ setTab, pushToast }) => {
     problem: "",
     deliverable: "",
     duration: "5일",
-    reward: 80000,
+    reward: 7000,
     team: false,
     hire: true,
     criteria: ["타겟 페르소나 이해", "근거 있는 의사결정"],
   });
   const update = (k, v) => setData({ ...data, [k]: v });
 
-  // 프로젝트 등록비(플랫폼 수수료): 충전 크레딧에서 건당 정액 차감
-  const regFee = 1000;
-  const balance = 14000;
+  // 프로젝트 등록 금액 = 보상 예치금 (등록 시 차감, 채택자에게 지급)
+  const regFee = data.reward;
+  const balance = 50000;
 
   return (
     <div className="p-8 fade-in max-w-4xl">
@@ -3047,11 +3047,11 @@ const CompanyNewProject = ({ setTab, pushToast }) => {
             <div className="text-sm text-slate-500 mb-4">FOO 템플릿으로 시작하면 등록이 3분 안에 끝나요.</div>
             <div className="grid grid-cols-3 gap-3">
               {[
-                { id: "idea", t: "아이디어 챌린지", d: "1~3일, 다수 결과물 비교", reward: "20,000~30,000P", icon: "sparkle" },
-                { id: "exec", t: "실무 단기 프로젝트", d: "3~7일, 단일 결과물", reward: "50,000~100,000P", icon: "bolt", best: true },
-                { id: "team", t: "팀 프로젝트 / 심화", d: "1~2주, 팀 단위", reward: "150,000~200,000P", icon: "users" },
+                { id: "idea", t: "아이디어 챌린지", d: "1~3일, 다수 결과물 비교", reward: "2,000P", icon: "sparkle" },
+                { id: "exec", t: "실무 단기 프로젝트", d: "3~7일, 단일 결과물", reward: "7,000P", icon: "bolt", best: true },
+                { id: "team", t: "팀 프로젝트 / 심화", d: "1~2주, 팀 단위", reward: "15,000P", icon: "users" },
               ].map((t) => (
-                <button key={t.id} onClick={() => { update("template", t.id); update("team", t.id === "team"); update("reward", t.id === "idea" ? 30000 : t.id === "team" ? 180000 : 80000); update("duration", t.id === "idea" ? "3일" : t.id === "team" ? "1주" : "5일"); }}
+                <button key={t.id} onClick={() => { update("template", t.id); update("team", t.id === "team"); update("reward", t.id === "idea" ? 2000 : t.id === "team" ? 15000 : 7000); update("duration", t.id === "idea" ? "3일" : t.id === "team" ? "1주" : "5일"); }}
                   className={`text-left p-5 rounded-xl border-2 transition ${data.template === t.id ? "border-violet-600 bg-violet-50/60 shadow-pop" : "border-slate-200 hover:border-violet-300"}`}>
                   {t.best && <Chip color="indigo" active size="sm">인기</Chip>}
                   <div className="w-10 h-10 mt-2 rounded-xl bg-white flex items-center justify-center shadow-soft"><Icon name={t.icon} size={20} className="text-violet-600" /></div>
@@ -3113,7 +3113,7 @@ const CompanyNewProject = ({ setTab, pushToast }) => {
                 <div className="font-extrabold">보상 포인트</div>
                 <input type="number" value={data.reward} onChange={(e) => update("reward", parseInt(e.target.value || "0"))}
                   className="mt-2 w-full px-4 py-3 rounded-xl bg-slate-50 text-sm font-extrabold text-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-200" />
-                <div className="text-xs text-slate-500 mt-1">권장 {data.template === "idea" ? "20,000~30,000P" : data.template === "team" ? "150,000~200,000P" : "50,000~100,000P"}</div>
+                <div className="text-xs text-slate-500 mt-1">권장 {data.template === "idea" ? "2,000P" : data.template === "team" ? "15,000P" : "7,000P"}</div>
               </div>
             </div>
             <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50">
@@ -3161,14 +3161,14 @@ const CompanyNewProject = ({ setTab, pushToast }) => {
               <Card className="p-4">
                 <div className="text-xs font-semibold text-slate-500">차감 예상</div>
                 <div className="mt-2 space-y-1.5 text-sm">
-                  <div className="flex justify-between"><span>프로젝트 등록비 (건당)</span><span className="font-bold">{regFee.toLocaleString()}P</span></div>
+                  <div className="flex justify-between"><span>프로젝트 등록 ({data.template === "idea" ? "아이디어" : data.template === "team" ? "팀" : "실무 단기"})</span><span className="font-bold">{regFee.toLocaleString()}P</span></div>
                   <div className="flex justify-between text-slate-500"><span>상단 노출 부스트 (선택)</span><span>+1,000P/일</span></div>
                   <div className="border-t border-slate-100 my-2"></div>
                   <div className="flex justify-between font-extrabold"><span>총 차감</span><span className="text-violet-700">{regFee.toLocaleString()}P</span></div>
                 </div>
                 <div className="mt-4 text-xs text-slate-500">잔액 {balance.toLocaleString()}P → 차감 후 <span className="font-bold text-slate-700">{(balance - regFee).toLocaleString()}P</span></div>
                 <div className="mt-3 p-2.5 rounded-lg bg-slate-50 text-[11px] text-slate-500 leading-relaxed">
-                  참여자 보상 <span className="font-bold text-slate-700">{data.reward.toLocaleString()}P</span>는 결과물 채택 시 별도 지급됩니다.
+                  등록 시 보상 <span className="font-bold text-slate-700">{data.reward.toLocaleString()}P</span>가 예치되며, 결과물 채택 시 참여자에게 지급됩니다.
                 </div>
               </Card>
             </div>
@@ -3420,11 +3420,11 @@ const BoostModal = ({ onClose, onPurchase }) => {
             <div className="p-2.5 rounded-xl bg-violet-50 flex flex-col justify-between">
               <div>
                 <div className="text-[10px] font-semibold text-violet-700">보유 포인트</div>
-                <div className="font-extrabold text-violet-700 text-sm">14,000P</div>
+                <div className="font-extrabold text-violet-700 text-sm">50,000P</div>
               </div>
               <div>
                 <div className="text-[10px] text-slate-500 mt-1">결제 후 잔액</div>
-                <div className="font-bold text-slate-900 text-sm">{(14000 - plan.price).toLocaleString()}P</div>
+                <div className="font-bold text-slate-900 text-sm">{(50000 - plan.price).toLocaleString()}P</div>
               </div>
             </div>
           </div>
@@ -3538,8 +3538,8 @@ const CompanyPoints = ({ pushToast }) => {
           <div className="flex items-center justify-between">
             <div>
               <div className="text-xs font-semibold text-slate-500">현재 보유 포인트</div>
-              <div className="text-4xl font-extrabold mt-1 text-grad">14,000P</div>
-              <div className="text-xs text-slate-500 mt-1">이번 달 소진 9,000P · 지난 달 대비 +24%</div>
+              <div className="text-4xl font-extrabold mt-1 text-grad">50,000P</div>
+              <div className="text-xs text-slate-500 mt-1">이번 달 소진 26,700P · 지난 달 대비 +24%</div>
             </div>
             <div className="w-20 h-20 rounded-2xl grad-primary flex items-center justify-center shadow-pop">
               <Icon name="coin" size={36} className="text-white" />
@@ -3578,11 +3578,11 @@ const CompanyPoints = ({ pushToast }) => {
         <div className="font-extrabold mb-3">사용 내역</div>
         <Card className="overflow-hidden">
           {[
-            { d: "2026.05.24", t: "프로젝트 등록: 모바일 앱 온보딩 4스텝 리디자인", a: -1000 },
+            { d: "2026.05.24", t: "프로젝트 등록: 모바일 앱 온보딩 4스텝 리디자인 (실무)", a: -7000 },
             { d: "2026.05.22", t: "상단 노출 부스트 (3일)", a: -2700 },
-            { d: "2026.05.18", t: "크레딧 충전 (15,000P)", a: +15000 },
-            { d: "2026.05.10", t: "프로젝트 등록: 친환경 패키지 콘텐츠", a: -1000 },
-            { d: "2026.05.02", t: "프로젝트 등록: 브랜드 리서치", a: -1000 },
+            { d: "2026.05.18", t: "크레딧 충전 (10,000P)", a: +10000 },
+            { d: "2026.05.10", t: "프로젝트 등록: 친환경 패키지 콘텐츠 (아이디어)", a: -2000 },
+            { d: "2026.05.02", t: "프로젝트 등록: 브랜드 리서치 (팀)", a: -15000 },
           ].map((r, i) => (
             <div key={i} className={`grid grid-cols-12 gap-4 px-5 py-3 ${i ? "border-t border-slate-100" : ""}`}>
               <div className="col-span-2 text-xs text-slate-500">{r.d}</div>
